@@ -55,15 +55,32 @@ namespace LiveCameraSample
         public static string SummarizeFaceAttributes(FaceAttributes attr)
         {
             List<string> attrs = new List<string>();
+            foreach (var a in attr.Accessories.Where(a => a.Confidence > .5)) { attrs.Add(a.Type.ToString()); }
+            if (attr.FacialHair.Beard >.5)  attrs.Add("Beard");
+            if (attr.FacialHair.Moustache > .5) attrs.Add("Moustache");
+            if (attr.FacialHair.Sideburns> .5) attrs.Add("Sideburns");
+            attrs.Add(attr.Glasses.ToString());
+            if (attr.Hair != null)
+            {
+                if (attr.Hair.Bald > .5) { attrs.Add("Bald"); };
+                foreach (var hair in attr.Hair.HairColor)
+                {
+                    if (hair.Confidence > .5)
+                    {
+                        attrs.Add($"{hair.Color} hair");
+                        break;
+                    };
+                }
+            }
+            if (attr.Smile > .5) attrs.Add("Smiling");
             if (attr.Gender != null) attrs.Add(attr.Gender);
             if (attr.Age > 0) attrs.Add(attr.Age.ToString());
             if (attr.HeadPose != null)
             {
                 // Simple rule to estimate whether person is facing camera. 
-                bool facing = Math.Abs(attr.HeadPose.Yaw) < 25;
-                attrs.Add(facing ? "facing camera" : "not facing camera");
+                attrs.Add(Math.Abs(attr.HeadPose.Yaw) < 50 ? "facing camera" : "not facing camera");
             }
-            return string.Join(", ", attrs);
+            return string.Join("\n", attrs);
         }
     }
 }

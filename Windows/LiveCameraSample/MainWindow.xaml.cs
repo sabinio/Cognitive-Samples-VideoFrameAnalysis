@@ -178,7 +178,14 @@ namespace LiveCameraSample
             var attrs = new List<FaceAPI.FaceAttributeType> {
                 FaceAPI.FaceAttributeType.Age,
                 FaceAPI.FaceAttributeType.Gender,
-                FaceAPI.FaceAttributeType.HeadPose
+                FaceAPI.FaceAttributeType.HeadPose,
+                FaceAPI.FaceAttributeType.Accessories,
+                FaceAPI.FaceAttributeType.FacialHair,
+                FaceAPI.FaceAttributeType.Makeup,
+                FaceAPI.FaceAttributeType.Smile,
+                FaceAPI.FaceAttributeType.Emotion,
+                FaceAPI.FaceAttributeType.Glasses,
+                FaceAPI.FaceAttributeType.Hair
             };
             var faces = await _faceClient.DetectAsync(jpg, returnFaceAttributes: attrs);
             // Count the API call. 

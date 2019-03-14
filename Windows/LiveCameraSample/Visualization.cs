@@ -79,12 +79,12 @@ namespace LiveCameraSample
             {
                 return baseImage;
             }
-
+            
             Action<DrawingContext, double> drawAction = (drawingContext, annotationScale) =>
             {
                 double y = 0;
                 foreach (var tag in tags)
-                {
+                {                  
                     // Create formatted text--in a particular font at a particular size
                     FormattedText ft = new FormattedText(tag.Name,
                         CultureInfo.CurrentCulture, FlowDirection.LeftToRight, s_typeface,
@@ -148,7 +148,7 @@ namespace LiveCameraSample
                     {
                         FormattedText ft = new FormattedText(text,
                             CultureInfo.CurrentCulture, FlowDirection.LeftToRight, s_typeface,
-                            16 * annotationScale, Brushes.Black);
+                            12 * annotationScale, Brushes.Black);
 
                         var pad = 3 * annotationScale;
 
